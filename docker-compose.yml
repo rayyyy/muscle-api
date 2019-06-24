@@ -5,6 +5,8 @@ services:
     build:
       context: .
     tty: true
+    ports:
+      - "5000:5000"
     volumes:
       - ./:/go/src/app
     # environment:
