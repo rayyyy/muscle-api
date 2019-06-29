@@ -9,24 +9,24 @@ services:
       - "5000:5000"
     volumes:
       - ./:/go/src/app
-    # environment:
-    #   TZ: Asia/Tokyo
-    #   RDS_HOSTNAME: mysql
-    #   RDS_USERNAME: root
-    #   RDS_PASSWORD: pass
+    environment:
+      TZ: Asia/Tokyo
+      RDS_HOSTNAME: mysql
+      RDS_USERNAME: root
+      RDS_PASSWORD: pass
 
-#   mysql:
-#     image: mysql:5.7.26
-#     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-#     restart: always
-#     ports:
-#       - "3306:3306"
-#     environment:
-#       MYSQL_DATABASE: keyboard-market_development
-#       MYSQL_ROOT_PASSWORD: pass
-#       TZ: 'Asia/Tokyo'
-#     volumes:
-#       - mysql:/var/lib/mysql
+  mysql:
+    image: mysql:5.7.26
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: muscle_development
+      MYSQL_ROOT_PASSWORD: pass
+      TZ: 'Asia/Tokyo'
+    volumes:
+      - mysql:/var/lib/mysql
 
-# volumes:
-#   mysql:
+volumes:
+  mysql:
