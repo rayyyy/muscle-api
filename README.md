@@ -28,3 +28,16 @@ models
 # コントローラー関数 それぞれのAPIの処理を入れる
 controllers
 ```
+
+## migrateについて
+
+```
+# マイグレーションファイル作成
+goose -dir models create create_user sql
+# マイグレーション状況確認
+goose mysql "root:pass@tcp(mysql:3306)/muscle_development?parseTime=true" status
+# マイグレーション実行
+goose -dir models mysql "root:pass@tcp(mysql:3306)/muscle_development?parseTime=true" up
+# マイグレーション ロールバック
+goose -dir models mysql "root:pass@tcp(mysql:3306)/muscle_development?parseTime=true" down
+```
