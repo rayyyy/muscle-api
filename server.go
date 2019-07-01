@@ -14,5 +14,5 @@ func main() {
 	e.Use(middleware.Recover())
 
 	e.GET("/hello", controllers.Hello)
-	e.Logger.Fatal(e.Start(":5000"))
+	e.Logger.Fatal(e.Start(":80"))
 }

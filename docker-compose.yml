@@ -7,7 +7,7 @@ services:
     tty: true
     command: modd
     ports:
-      - "5000:5000"
+      - "5000:80"
     volumes:
       - ./:/go/src/app
     environment:
