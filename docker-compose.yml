@@ -5,6 +5,7 @@ services:
     build:
       context: .
     tty: true
+    command: modd
     ports:
       - "5000:5000"
     volumes:
