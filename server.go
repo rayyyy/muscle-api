@@ -1,7 +1,9 @@
 package main
 
 import (
+	"log"
 	"muscle-api/controllers"
+	"os"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -14,5 +16,11 @@ func main() {
 	e.Use(middleware.Recover())
 
 	e.GET("/hello", controllers.Hello)
-	e.Logger.Fatal(e.Start(":80"))
+
+	port := os.Getenv("PORT")
+	if port == "" {
+		log.Fatal("$PORT must be set")
+	}
+
+	e.Logger.Fatal(e.Start(":" + port))
 }

@@ -12,6 +12,7 @@ services:
       - ./:/go/src/app
     environment:
       TZ: Asia/Tokyo
+      PORT: 80
       RDS_HOSTNAME: mysql
       RDS_USERNAME: root
       RDS_PASSWORD: pass
