@@ -33,11 +33,16 @@ controllers
 
 ```
 # マイグレーションファイル作成
-goose -dir models create create_user sql
+goose -dir migration create create_user sql
 # マイグレーション状況確認
 goose mysql "root:pass@tcp(mysql:3306)/muscle_development?parseTime=true" status
 # マイグレーション実行
-goose -dir models mysql "root:pass@tcp(mysql:3306)/muscle_development?parseTime=true" up
+goose -dir migration mysql "root:pass@tcp(mysql:3306)/muscle_development?parseTime=true" up
 # マイグレーション ロールバック
-goose -dir models mysql "root:pass@tcp(mysql:3306)/muscle_development?parseTime=true" down
+goose -dir migration mysql "root:pass@tcp(mysql:3306)/muscle_development?parseTime=true" down
+```
+
+migrateしたあとは下のコマンドをつかってmodels配下にstructを作る
+```
+db2struct --host mysql -d muscle_development -t users --package models --struct userTable -p --user root --guregu --gorm
 ```
