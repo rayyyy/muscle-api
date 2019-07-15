@@ -4,12 +4,18 @@ import (
 	"log"
 	"net/http"
 
-	"muscle-api/models"
 	"muscle-api/funcs"
+	"muscle-api/models"
 
 	"github.com/k0kubun/pp"
 	"github.com/labstack/echo/v4"
 )
+
+// AuthUser 認証用
+type User struct {
+	Email string `gorm:"column:email"`
+	UID   string `gorm:"column:uid"`
+}
 
 // SignIn サインイン用 ユーザーがいなかったら作成
 func SignIn(c echo.Context) error {
@@ -24,12 +30,21 @@ func SignIn(c echo.Context) error {
 	}
 	defer db.Close()
 
-	user := models.User{Nickname: "ray", UID: "abcdefghij", Image: "example", Email: "example@aaa.ccc"}
-	pp.Print(user)
-	if err := db.Create(&user).Error; err != nil {
-		// エラーハンドリング...
-		pp.Print(err)
+	authUser := new(User)
+	if err := c.Bind(&authUser); err != nil {
+		return err
 	}
 
-	return c.String(http.StatusOK, "SignIn!")
+	user := new(models.User)
+	db.FirstOrInit(&user, authUser)
+
+	if db.NewRecord(user) == true {
+		user.Nickname = "筋トレ初心者"
+		user.Image = "exampleData"
+		if err := db.Save(&user).Error; err != nil {
+			pp.Print(err)
+		}
+	}
+
+	return c.JSON(http.StatusOK, user)
 }

@@ -15,7 +15,7 @@ func main() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
-	e.GET("/sign-in", controllers.SignIn)
+	e.POST("/sign-in", controllers.SignIn)
 	e.GET("/hello", controllers.Hello)
 
 	port := os.Getenv("PORT")
