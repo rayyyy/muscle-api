@@ -7,14 +7,14 @@ services:
     tty: true
     command: modd
     ports:
-      - "5000:80"
+      - "5000:5000"
     volumes:
       - ./:/go/src/app
     env_file:
       - app.env
     environment:
       TZ: Asia/Tokyo
-      PORT: 80
+      PORT: 5000
       RDS_HOSTNAME: mysql
       RDS_USERNAME: root
       RDS_PASSWORD: pass

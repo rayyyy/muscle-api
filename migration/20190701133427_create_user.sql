@@ -6,11 +6,11 @@ CREATE TABLE users (
   email VARCHAR(255) NOT NULL,
   nickname VARCHAR(50) NOT NULL,
   image TEXT NOT NULL ,
-  birthday DATE NOT NULL,
-  sex ENUM('男性', '女性', '指定なし') DEFAULT '指定なし' NOT NULL,
-  status ENUM('本客', '解約', '凍結') DEFAULT '本客' NOT NULL,
-  created_at datetime NOT NULL default current_timestamp,
-  updated_at datetime NOT NULL default current_timestamp on update current_timestamp,
+  birthday DATE,
+  sex ENUM('男性', '女性', '指定なし') DEFAULT '指定なし',
+  status ENUM('本客', '解約', '凍結') DEFAULT '本客',
+  created_at DATETIME NOT NULL DEFAULT current_timestamp,
+  updated_at DATETIME NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp,
   PRIMARY KEY(id)
 );
 
