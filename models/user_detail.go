@@ -1,5 +1,7 @@
 package models
 
+// db2struct --host mysql -d muscle_development -t user_details --package models --struct UserDetail -p --user root --guregu --gorm
+
 type UserDetail struct {
 	Bedtime        null.Time   `gorm:"column:bedtime"`
 	BloodType      null.String `gorm:"column:blood_type"`

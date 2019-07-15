@@ -1,6 +1,6 @@
 package models
 
-import "time"
+// db2struct --host mysql -d muscle_development -t users --package models --struct User -p --user root --guregu --gorm
 
 type User struct {
 	Birthday  time.Time `gorm:"column:birthday"`
@@ -18,3 +18,4 @@ type User struct {
 func (u *User) TableName() string {
 	return "users"
 }
+

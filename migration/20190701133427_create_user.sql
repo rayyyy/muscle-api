@@ -2,7 +2,8 @@
 -- SQL in this section is executed when the migration is applied.
 CREATE TABLE users (
   id INT(11) AUTO_INCREMENT NOT NULL,
-  email VARCHAR(255) NOT NULL ,
+  uid VARCHAR(128) NOT NULL,
+  email VARCHAR(255) NOT NULL,
   nickname VARCHAR(50) NOT NULL,
   image TEXT NOT NULL ,
   birthday DATE NOT NULL,
