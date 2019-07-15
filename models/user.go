@@ -2,6 +2,9 @@ package models
 
 // db2struct --host mysql -d muscle_development -t users --package models --struct User -p --user root --guregu --gorm
 
+import "time"
+
+// User User
 type User struct {
 	Birthday  time.Time `gorm:"column:birthday"`
 	CreatedAt time.Time `gorm:"column:created_at"`
