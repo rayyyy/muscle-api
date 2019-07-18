@@ -7,14 +7,13 @@ import (
 	"muscle-api/funcs"
 	"muscle-api/models"
 
-	"github.com/k0kubun/pp"
 	"github.com/labstack/echo/v4"
 )
 
-// AuthUser 認証用
+// User 認証用
 type User struct {
-	Email string `gorm:"column:email"`
-	UID   string `gorm:"column:uid"`
+	Email string `gorm:"column:email" json:"email"`
+	UID   string `gorm:"column:uid" json:"uid"`
 }
 
 // SignIn サインイン用 ユーザーがいなかったら作成
@@ -42,7 +41,7 @@ func SignIn(c echo.Context) error {
 		user.Nickname = "筋トレ初心者"
 		user.Image = "exampleData"
 		if err := db.Save(&user).Error; err != nil {
-			pp.Print(err)
+			log.Println(err)
 		}
 	}
 

@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"log"
-	"github.com/k0kubun/pp"
 	"net/http"
 	"muscle-api/models"
 
@@ -20,7 +19,7 @@ func Update(c echo.Context) error {
 
 	userDetail := new(models.UserDetail)
 	if err := c.Bind(&userDetail); err != nil {
-		pp.Println(err)
+		log.Println(err)
 		return err
 	}
 
