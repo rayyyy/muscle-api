@@ -11,16 +11,6 @@ import (
 
 // Update userの情報更新
 func Update(c echo.Context) error {
-	// name := c.Param("user_id") path param
-	// https://echo.labstack.com/guide/request
-
-// {
-//   "id": 1,
-//   "user_id": 1,
-//   "short_message": "8ヶ月",
-//   "height": 1,
-//   "weight": 1
-// }
 	db, err := models.GetDB()
 	if err != nil {
 		log.Println(err)
@@ -33,11 +23,9 @@ func Update(c echo.Context) error {
 		pp.Println(err)
 		return err
 	}
-	pp.Println(userDetail)
 
 	db.FirstOrInit(&userDetail, userDetail)
 	db.Save(&userDetail)
-	pp.Println(userDetail)
 
-	return c.String(http.StatusOK, "Hello!")
+	return c.JSON(http.StatusOK, userDetail)
 }
