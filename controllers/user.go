@@ -8,6 +8,22 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+// Get userの情報取得
+func Get(c echo.Context) error {
+	db, err := models.GetDB()
+	if err != nil {
+		log.Println(err)
+		return c.String(http.StatusInternalServerError, "Error!")
+	}
+	defer db.Close()
+
+	id := c.Param("id")
+	var user models.UserDetail
+	db.First(&user, id)
+
+	return c.JSON(http.StatusOK, user)
+}
+
 // Update userの情報更新
 func Update(c echo.Context) error {
 	db, err := models.GetDB()
