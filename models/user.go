@@ -20,6 +20,8 @@ type User struct {
 	Status    null.String `gorm:"column:status" json:"status"`
 	UID       string      `gorm:"column:uid" json:"uid"`
 	UpdatedAt time.Time   `gorm:"column:updated_at" json:"updated_at"`
+
+	UserDetail UserDetail `json:"user_detail"`
 }
 
 // TableName sets the insert table name for this struct type

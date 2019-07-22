@@ -2,8 +2,8 @@ package controllers
 
 import (
 	"log"
-	"net/http"
 	"muscle-api/models"
+	"net/http"
 
 	"github.com/labstack/echo/v4"
 )
@@ -18,8 +18,8 @@ func Get(c echo.Context) error {
 	defer db.Close()
 
 	id := c.Param("id")
-	var user models.UserDetail
-	db.First(&user, id)
+	var user models.User
+	db.Preload("UserDetail").First(&user, id)
 
 	return c.JSON(http.StatusOK, user)
 }
