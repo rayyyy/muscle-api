@@ -11,7 +11,7 @@ import (
 )
 
 // User 認証用
-type User struct {
+type authUser struct {
 	Email string `gorm:"column:email" json:"email"`
 	UID   string `gorm:"column:uid" json:"uid"`
 }
@@ -29,20 +29,20 @@ func SignIn(c echo.Context) error {
 	}
 	defer db.Close()
 
-	authUser := new(User)
+	authUser := new(authUser)
 	if err := c.Bind(&authUser); err != nil {
 		return err
 	}
 
 	user := new(models.User)
-	db.FirstOrInit(&user, authUser)
+	db.Assign(authUser).FirstOrInit(&user)
 
 	if db.NewRecord(user) == true {
 		user.Nickname = "筋トレ初心者"
 		user.Image = "exampleData"
-		if err := db.Save(&user).Error; err != nil {
-			log.Println(err)
-		}
+	}
+	if err := db.Save(&user).Error; err != nil {
+		log.Println(err)
 	}
 
 	return c.JSON(http.StatusOK, user)
