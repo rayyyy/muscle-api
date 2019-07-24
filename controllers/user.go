@@ -33,14 +33,14 @@ func Update(c echo.Context) error {
 	}
 	defer db.Close()
 
-	userDetail := new(models.UserDetail)
-	if err := c.Bind(&userDetail); err != nil {
+	user := new(models.User)
+	if err := c.Bind(&user); err != nil {
 		log.Println(err)
 		return err
 	}
 
-	db.FirstOrInit(&userDetail, userDetail)
-	db.Save(&userDetail)
+	db.FirstOrInit(&user, user)
+	db.Save(&user)
 
-	return c.JSON(http.StatusOK, userDetail)
+	return c.JSON(http.StatusOK, user)
 }
