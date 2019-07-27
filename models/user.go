@@ -13,7 +13,7 @@ type User struct {
 	Birthday  null.Time   `gorm:"column:birthday" json:"birthday"`
 	CreatedAt time.Time   `gorm:"column:created_at" json:"created_at"`
 	Email     string      `gorm:"column:email" json:"email"`
-	ID        int         `gorm:"column:id;primary_key" json:"id;primary_key"`
+	ID        int         `gorm:"column:id;primary_key" json:"id"`
 	Image     string      `gorm:"column:image" json:"image"`
 	Nickname  string      `gorm:"column:nickname" json:"nickname"`
 	Sex       null.String `gorm:"column:sex" json:"sex"`

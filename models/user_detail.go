@@ -12,7 +12,7 @@ import (
 type UserDetail struct {
 	CreatedAt    time.Time   `gorm:"column:created_at" json:"created_at"`
 	Height       null.Float  `gorm:"column:height" json:"height"`
-	ID           int         `gorm:"column:id;primary_key" json:"id;primary_key"`
+	ID           int         `gorm:"column:id;primary_key" json:"id"`
 	ShortMessage null.String `gorm:"column:short_message" json:"short_message"`
 	UpdatedAt    time.Time   `gorm:"column:updated_at" json:"updated_at"`
 	UserID       int         `gorm:"column:user_id" json:"user_id"`
