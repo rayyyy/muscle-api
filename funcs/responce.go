@@ -3,16 +3,20 @@ package funcs
 import (
 	"net/http"
 	"strings"
+
 	"github.com/labstack/echo/v4"
 )
 
-// IsLoggedIn ユーザーがログインしているかを返す
-func IsLoggedIn(c echo.Context) bool {
-	authHeader := c.Request().Header.Get("Authorization")
-	idToken := strings.Replace(authHeader, "Bearer ", "", 1)
-	if isLogged := CheckLogin(idToken); isLogged == false {
-		c.String(http.StatusUnauthorized, "認証失敗")
-		return false
+// AuthHandler 認証しているか確認
+func AuthHandler(next echo.HandlerFunc) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		authHeader := c.Request().Header.Get("Authorization")
+		idToken := strings.Replace(authHeader, "Bearer ", "", 1)
+
+		if isLogged := CheckLogin(idToken); isLogged == false {
+			return echo.NewHTTPError(http.StatusUnauthorized)
+		}
+
+		return next(c)
 	}
-	return true
 }

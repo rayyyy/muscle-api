@@ -4,7 +4,6 @@ import (
 	"log"
 	"net/http"
 
-	"muscle-api/funcs"
 	"muscle-api/models"
 
 	"github.com/labstack/echo/v4"
@@ -18,10 +17,6 @@ type authUser struct {
 
 // SignIn サインイン用 ユーザーがいなかったら作成
 func SignIn(c echo.Context) error {
-	if isLoggedIn := funcs.IsLoggedIn(c); isLoggedIn == false {
-		return nil
-	}
-
 	db, err := models.GetDB()
 	if err != nil {
 		log.Println(err)
