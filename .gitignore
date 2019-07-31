@@ -2,3 +2,4 @@
 .devcontainer
 muscle.json
 *.env
+Makefile
