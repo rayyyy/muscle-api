@@ -11,9 +11,7 @@ import (
 
 // CheckLogin ユーザーがログインしているかを返す
 func CheckLogin(token string) bool {
-	credentialsFilePath := os.Getenv("GOOGLE_APPLICATION_CREDENTIALS")
-	opt := option.WithCredentialsFile(credentialsFilePath)
-
+	opt := option.WithCredentialsJSON([]byte(os.Getenv("GOOGLE_APPLICATION_CREDENTIALS")))
 	app, err := firebase.NewApp(context.Background(), nil, opt)
 	if err != nil {
 		log.Printf("error firebaseの初期化に失敗しました。: %v", err)
