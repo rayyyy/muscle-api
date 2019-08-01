@@ -1,6 +1,7 @@
-package funcs
+package handler
 
 import (
+	"muscle-api/funcs"
 	"net/http"
 	"strings"
 
@@ -13,7 +14,7 @@ func AuthHandler(next echo.HandlerFunc) echo.HandlerFunc {
 		authHeader := c.Request().Header.Get("Authorization")
 		idToken := strings.Replace(authHeader, "Bearer ", "", 1)
 
-		if isLogged := CheckLogin(idToken); isLogged == false {
+		if isLogged := funcs.CheckLogin(idToken); isLogged == false {
 			return echo.NewHTTPError(http.StatusUnauthorized)
 		}
 
