@@ -20,13 +20,14 @@ func SignIn(c echo.Context) error {
 	db, err := models.GetDB()
 	if err != nil {
 		log.Println(err)
-		return c.String(http.StatusInternalServerError, "Error!")
+		return echo.NewHTTPError(http.StatusInternalServerError)
 	}
 	defer db.Close()
 
 	authUser := new(authUser)
 	if err := c.Bind(&authUser); err != nil {
-		return err
+		log.Println(err)
+		return echo.NewHTTPError(http.StatusBadRequest)
 	}
 
 	user := new(models.User)
@@ -38,6 +39,7 @@ func SignIn(c echo.Context) error {
 	}
 	if err := db.Save(&user).Error; err != nil {
 		log.Println(err)
+		return echo.NewHTTPError(http.StatusInternalServerError)
 	}
 
 	return c.JSON(http.StatusOK, user)

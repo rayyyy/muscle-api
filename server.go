@@ -23,7 +23,6 @@ func main() {
 	e.POST("/sign-in", controllers.SignIn)
 	e.GET("/user/:id", controllers.Get)
 	e.POST("/user/:id", controllers.Update)
-	e.GET("/hello", controllers.Hello)
 
 	e.HTTPErrorHandler = handler.JSONErrorHandler
 
