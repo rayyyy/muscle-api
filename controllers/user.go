@@ -14,7 +14,7 @@ func Get(c echo.Context) error {
 	db, err := models.GetDB()
 	if err != nil {
 		log.Println(err)
-		return c.String(http.StatusInternalServerError, "Error!")
+		return echo.NewHTTPError(http.StatusInternalServerError)
 	}
 	defer db.Close()
 
@@ -30,14 +30,14 @@ func Update(c echo.Context) error {
 	db, err := models.GetDB()
 	if err != nil {
 		log.Println(err)
-		return c.String(http.StatusInternalServerError, "Error!")
+		return echo.NewHTTPError(http.StatusInternalServerError)
 	}
 	defer db.Close()
 
 	updateUser := new(updateUser)
 	if err := c.Bind(&updateUser); err != nil {
 		log.Println(err)
-		return err
+		return echo.NewHTTPError(http.StatusBadRequest)
 	}
 
 	user := new(models.User)

@@ -18,6 +18,8 @@ func JSONErrorHandler(err error, c echo.Context) {
 	if httpError, ok := err.(*echo.HTTPError); ok {
 		code = httpError.Code
 		switch code {
+		case 400, 422:
+			message = "リクエストが正しくありません。"
 		case 401:
 			message = "未ログインです。"
 		case 403:
@@ -28,6 +30,10 @@ func JSONErrorHandler(err error, c echo.Context) {
 		default:
 			code = 500
 			message = "サーバーエラーが起きました。"
+		}
+
+		if errorMessage, ok := httpError.Message.(string); ok {
+			message = errorMessage
 		}
 	}
 
