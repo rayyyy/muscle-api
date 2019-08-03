@@ -10,13 +10,14 @@ import (
 
 // UserDetail UserDetail
 type UserDetail struct {
-	CreatedAt    time.Time   `gorm:"column:created_at" json:"created_at"`
-	Height       null.Float  `gorm:"column:height" json:"height"`
 	ID           int         `gorm:"column:id;primary_key" json:"id"`
+	Height       null.Float  `gorm:"column:height" json:"height"`
 	ShortMessage null.String `gorm:"column:short_message" json:"short_message"`
-	UpdatedAt    time.Time   `gorm:"column:updated_at" json:"updated_at"`
 	UserID       int         `gorm:"column:user_id" json:"user_id"`
 	Weight       null.Float  `gorm:"column:weight" json:"weight"`
+	CreatedAt    time.Time   `gorm:"column:created_at" json:"created_at"`
+	UpdatedAt    time.Time   `gorm:"column:updated_at" json:"updated_at"`
+	DeletedAt    *null.Time  `gorm:"column:deleted_at" json:"deleted_at"`
 }
 
 // TableName sets the insert table name for this struct type

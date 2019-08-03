@@ -25,15 +25,11 @@ func JSONErrorHandler(err error, c echo.Context) {
 		case 403:
 			message = "権限がありません。"
 		case 404:
-			message = "存在しません。"
+			message = "情報が存在しません。"
 
 		default:
 			code = 500
 			message = "サーバーエラーが起きました。"
-		}
-
-		if errorMessage, ok := httpError.Message.(string); ok {
-			message = errorMessage
 		}
 	}
 

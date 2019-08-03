@@ -9,6 +9,7 @@ CREATE TABLE user_details (
   weight DECIMAL ( 5, 2 ),
   created_at datetime NOT NULL default current_timestamp,
   updated_at datetime NOT NULL default current_timestamp on update current_timestamp,
+  deleted_at DATETIME,
   PRIMARY KEY(id)
   -- FOREIGN KEY(user_id) REFERENCES users(id)
 );

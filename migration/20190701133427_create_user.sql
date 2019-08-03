@@ -11,6 +11,7 @@ CREATE TABLE users (
   status ENUM('本客', '解約', '凍結') DEFAULT '本客',
   created_at DATETIME NOT NULL DEFAULT current_timestamp,
   updated_at DATETIME NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp,
+  deleted_at DATETIME,
   PRIMARY KEY(id),
   UNIQUE (uid)
 );

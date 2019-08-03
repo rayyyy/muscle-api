@@ -4,22 +4,22 @@ package models
 
 import (
 	"time"
-
 	null "gopkg.in/guregu/null.v3"
 )
 
 // User User
 type User struct {
-	Birthday  null.Time   `gorm:"column:birthday" json:"birthday"`
-	CreatedAt time.Time   `gorm:"column:created_at" json:"created_at"`
-	Email     string      `gorm:"column:email" json:"email"`
 	ID        int         `gorm:"column:id;primary_key" json:"id"`
+	Birthday  null.Time   `gorm:"column:birthday" json:"birthday"`
+	Email     string      `gorm:"column:email" json:"email"`
 	Image     string      `gorm:"column:image" json:"image"`
 	Nickname  string      `gorm:"column:nickname" json:"nickname"`
 	Sex       null.String `gorm:"column:sex" json:"sex"`
 	Status    null.String `gorm:"column:status" json:"status"`
 	UID       string      `gorm:"column:uid" json:"uid"`
+	CreatedAt time.Time   `gorm:"column:created_at" json:"created_at"`
 	UpdatedAt time.Time   `gorm:"column:updated_at" json:"updated_at"`
+	DeletedAt *time.Time  `gorm:"column:deleted_at" json:"deleted_at"`
 
 	UserDetail UserDetail `json:"user_detail"`
 }

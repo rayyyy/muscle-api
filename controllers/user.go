@@ -5,6 +5,7 @@ import (
 	"muscle-api/models"
 	"net/http"
 
+	"github.com/jinzhu/gorm"
 	"github.com/labstack/echo/v4"
 	null "gopkg.in/guregu/null.v3"
 )
@@ -21,6 +22,10 @@ func Get(c echo.Context) error {
 	id := c.Param("id")
 	user := new(models.User)
 	db.Preload("UserDetail").First(&user, id)
+
+	if err := db.Preload("UserDetail").First(&user, id).Error; gorm.IsRecordNotFoundError(err) {
+		return echo.NewHTTPError(http.StatusNotFound)
+	}
 
 	return c.JSON(http.StatusOK, user)
 }
