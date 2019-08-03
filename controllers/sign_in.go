@@ -31,7 +31,7 @@ func SignIn(c echo.Context) error {
 	}
 
 	user := new(models.User)
-	db.Preload("UserDetail").Assign(authUser).FirstOrInit(&user)
+	db.Preload("UserDetail").Assign(authUser).FirstOrInit(&user, models.User{UID: authUser.UID})
 
 	if db.NewRecord(user) == true {
 		user.Nickname = "筋トレ初心者"
