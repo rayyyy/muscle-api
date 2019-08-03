@@ -21,7 +21,7 @@ func Get(c echo.Context) error {
 
 	id := c.Param("id")
 	user := new(models.User)
-	db.Preload("UserDetail").First(&user, id)
+	db.First(&user, id).Related(&user.UserDetail)
 
 	if err := db.Preload("UserDetail").First(&user, id).Error; gorm.IsRecordNotFoundError(err) {
 		return echo.NewHTTPError(http.StatusNotFound)
