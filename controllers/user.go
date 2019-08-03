@@ -46,10 +46,10 @@ func Update(c echo.Context) error {
 	}
 
 	user := new(models.User)
-	db.First(&user)
+	db.First(&user, updateUser.ID)
 	db.Model(&user).Updates(updateUser)
 
-	db.Assign(updateUser.UserDetail).FirstOrInit(&user.UserDetail)
+	db.Assign(updateUser.UserDetail).FirstOrInit(&user.UserDetail, updateUser.UserDetail.ID)
 	db.Save(&user)
 
 	return c.JSON(http.StatusOK, user)
