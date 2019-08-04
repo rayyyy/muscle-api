@@ -58,6 +58,8 @@ func Update(c echo.Context) error {
 type updateUser struct {
 	ID         int              `gorm:"column:id;primary_key" json:"id;primary_key"`
 	Nickname   string           `gorm:"column:nickname" json:"nickname"`
+	Birthday   null.Time        `gorm:"column:birthday" json:"birthday"`
+	Sex        null.String      `gorm:"column:sex" json:"sex"`
 	UserDetail updateUserDetail `json:"user_detail"`
 }
 type updateUserDetail struct {
