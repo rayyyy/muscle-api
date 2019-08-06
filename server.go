@@ -18,11 +18,13 @@ func main() {
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{"http://localhost:4200", "https://muscle.netlify.com"},
 	}))
-	e.Use(handler.AuthHandler)
 
-	e.POST("/sign-in", controllers.SignIn)
 	e.GET("/user/:id", controllers.Get)
-	e.POST("/user/:id", controllers.Update)
+
+	// 認証を必要とするもの
+	g := e.Group("/auth", handler.AuthHandler)
+	g.POST("/sign-in", controllers.SignIn)
+	g.POST("/user/:id", controllers.Update)
 
 	e.HTTPErrorHandler = handler.JSONErrorHandler
 
