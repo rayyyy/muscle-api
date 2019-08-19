@@ -17,6 +17,7 @@ type User struct {
 	Sex       null.String `gorm:"default:'unspecified'" json:"sex"`
 	Status    null.String `gorm:"default:'active'" json:"status"`
 	UID       string      `json:"uid"`
+	Mentor    Mentor      `json:"mentor"`
 	CreatedAt time.Time   `json:"created_at"`
 	UpdatedAt time.Time   `json:"updated_at"`
 	DeletedAt *time.Time  `json:"deleted_at"`

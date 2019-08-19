@@ -10,8 +10,8 @@ import (
 	null "gopkg.in/guregu/null.v3"
 )
 
-// Get userの情報取得
-func Get(c echo.Context) error {
+// GetUser userの情報取得
+func GetUser(c echo.Context) error {
 	db, err := models.GetDB()
 	if err != nil {
 		log.Println(err)
@@ -23,15 +23,15 @@ func Get(c echo.Context) error {
 	user := new(models.User)
 	db.First(&user, id).Related(&user.UserDetail)
 
-	if err := db.Preload("UserDetail").First(&user, id).Error; gorm.IsRecordNotFoundError(err) {
+	if err := db.Preload("UserDetail").Preload("Mentor").First(&user, id).Error; gorm.IsRecordNotFoundError(err) {
 		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	return c.JSON(http.StatusOK, user)
 }
 
-// Update userの情報更新
-func Update(c echo.Context) error {
+// UpdateUser userの情報更新
+func UpdateUser(c echo.Context) error {
 	db, err := models.GetDB()
 	if err != nil {
 		log.Println(err)
@@ -39,7 +39,7 @@ func Update(c echo.Context) error {
 	}
 	defer db.Close()
 
-	updateUser := new(updateUser)
+	updateUser := new(userParams)
 	if err := c.Bind(&updateUser); err != nil {
 		log.Println(err)
 		return echo.NewHTTPError(http.StatusBadRequest)
@@ -55,17 +55,17 @@ func Update(c echo.Context) error {
 	return c.JSON(http.StatusOK, user)
 }
 
-type updateUser struct {
+type userParams struct {
 	ID         int              `gorm:"column:id;primary_key" json:"id;primary_key"`
 	Nickname   string           `gorm:"column:nickname" json:"nickname"`
 	Birthday   null.Time        `gorm:"column:birthday" json:"birthday"`
 	Sex        null.String      `gorm:"column:sex" json:"sex"`
-	UserDetail updateUserDetail `json:"user_detail"`
+	UserDetail userDetailParams `json:"user_detail"`
 }
-type updateUserDetail struct {
-	Height       null.Float  `gorm:"column:height" json:"height"`
+type userDetailParams struct {
 	ID           int         `gorm:"column:id;primary_key" json:"id;primary_key"`
-	ShortMessage null.String `gorm:"column:short_message" json:"short_message"`
 	UserID       int         `gorm:"column:user_id" json:"user_id"`
+	ShortMessage null.String `gorm:"column:short_message" json:"short_message"`
+	Height       null.Float  `gorm:"column:height" json:"height"`
 	Weight       null.Float  `gorm:"column:weight" json:"weight"`
 }

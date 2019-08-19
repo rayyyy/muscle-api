@@ -44,5 +44,5 @@ goose -dir migration mysql "root:pass@tcp(mysql:3306)/muscle_development?parseTi
 
 migrateしたあとは下のコマンドをつかってmodels配下にstructを作る
 ```
-db2struct --host mysql -d muscle_development -t users --package models --struct User -p --user root --guregu --gorm
+db2struct --host mysql -d muscle_development -t users --package models --struct User -p --user root --guregu --gorm --json
 ```
