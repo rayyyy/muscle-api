@@ -7,7 +7,7 @@ CREATE TABLE users (
   nickname VARCHAR(50) NOT NULL,
   image TEXT NOT NULL,
   birthday DATE,
-  sex ENUM('male', 'female', 'unspecified') DEFAULT 'unspecified',
+  sex ENUM('unspecified', 'male', 'female') DEFAULT 'unspecified',
   status ENUM('active', 'canceled', 'freezing') DEFAULT 'active',
   created_at DATETIME NOT NULL DEFAULT current_timestamp,
   updated_at DATETIME NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp,
