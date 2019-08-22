@@ -14,7 +14,7 @@ type Mentor struct {
 	Image2        null.String  `json:"image2"`
 	Image3        null.String  `json:"image3"`
 	Image4        null.String  `json:"image4"`
-	MentorPlans   []MentorPlan `json:"mentor_plans"`
+	MentorPlans   []MentorPlan `json:"mentor_plans,omitempty"`
 	CreatedAt     null.Time    `json:"created_at"`
 	UpdatedAt     null.Time    `json:"updated_at"`
 	DeletedAt     null.Time    `json:"deleted_at"`

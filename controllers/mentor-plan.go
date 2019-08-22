@@ -30,6 +30,14 @@ func UpdateMentorPlan(c echo.Context) error {
 	db.Assign(updateMentor).FirstOrInit(&user.Mentor, models.Mentor{UserID: user.ID})
 	db.Save(&user)
 
+	for _, plan := range updateMentor.MentorPlans {
+		var mentorPlan models.MentorPlan
+		plan.IsValid = 1 // frontから飛ばせばいらない気がする
+		plan.MentorID = user.Mentor.ID
+		db.Assign(plan).FirstOrInit(&mentorPlan, plan.ID)
+		db.Save(&mentorPlan)
+	}
+
 	return c.JSON(http.StatusOK, user)
 }
 
@@ -37,7 +45,7 @@ type updateMentorParams struct {
 	ID            int                `json:"id"`
 	Title         string             `json:"title"`
 	AppealMessage string             `json:"appeal_message"`
-	MentorPlan    []mentorPlanParams `json:"mentor_plan"`
+	MentorPlans   []mentorPlanParams `json:"mentor_plans"`
 }
 
 type mentorPlanParams struct {

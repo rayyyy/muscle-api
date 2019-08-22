@@ -10,9 +10,9 @@ type MentorPlan struct {
 	MentorID  int         `json:"mentor_id"`
 	Title     null.String `json:"title"`
 	Detail    null.String `json:"detail"`
-	Type      null.String `json:"type"`
+	Type      null.String `gorm:"default:'once'" json:"type"`
 	Price     null.Int    `json:"price"`
-	IsValid   null.Int    `json:"is_valid"`
+	IsValid   null.Int    `gorm:"default:1" json:"is_valid"`
 	CreatedAt null.Time   `json:"created_at"`
 	UpdatedAt null.Time   `json:"updated_at"`
 	DeletedAt null.Time   `json:"deleted_at"`
