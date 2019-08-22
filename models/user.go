@@ -3,23 +3,24 @@ package models
 // db2struct --host mysql -d muscle_development -t users --package models --struct User -p --user root --guregu --gorm --json
 
 import (
-	"time"
 	null "gopkg.in/guregu/null.v3"
+	"time"
 )
 
 // User User
 type User struct {
-	ID        int         `gorm:"column:id;primary_key" json:"id"`
-	Birthday  null.Time   `gorm:"column:birthday" json:"birthday"`
-	Email     string      `gorm:"column:email" json:"email"`
-	Image     string      `gorm:"column:image" json:"image"`
-	Nickname  string      `gorm:"column:nickname" json:"nickname"`
-	Sex       null.String `gorm:"column:sex" json:"sex"`
-	Status    null.String `gorm:"column:status" json:"status"`
-	UID       string      `gorm:"column:uid" json:"uid"`
-	CreatedAt time.Time   `gorm:"column:created_at" json:"created_at"`
-	UpdatedAt time.Time   `gorm:"column:updated_at" json:"updated_at"`
-	DeletedAt *time.Time  `gorm:"column:deleted_at" json:"deleted_at"`
+	ID        int         `gorm:"primary_key" json:"id"`
+	Birthday  null.Time   `json:"birthday"`
+	Email     string      `json:"email"`
+	Image     string      `json:"image"`
+	Nickname  string      `json:"nickname"`
+	Sex       null.String `gorm:"default:'unspecified'" json:"sex"`
+	Status    null.String `gorm:"default:'active'" json:"status"`
+	UID       string      `json:"uid"`
+	Mentor    Mentor      `json:"mentor"`
+	CreatedAt time.Time   `json:"created_at"`
+	UpdatedAt time.Time   `json:"updated_at"`
+	DeletedAt *time.Time  `json:"deleted_at"`
 
 	UserDetail UserDetail `json:"user_detail"`
 }

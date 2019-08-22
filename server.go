@@ -19,12 +19,13 @@ func main() {
 		AllowOrigins: []string{"http://localhost:4200", "https://muscle.netlify.com"},
 	}))
 
-	e.GET("/user/:id", controllers.Get)
+	e.GET("/user/:id", controllers.GetUser)
 
 	// 認証を必要とするもの
 	g := e.Group("/auth", handler.AuthHandler)
 	g.POST("/sign-in", controllers.SignIn)
-	g.POST("/user/:id", controllers.Update)
+	g.POST("/user/:id", controllers.UpdateUser)
+	g.POST("/user/:id/mentor-plan", controllers.UpdateMentorPlan)
 
 	e.HTTPErrorHandler = handler.JSONErrorHandler
 
