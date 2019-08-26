@@ -3,6 +3,7 @@ module muscle-api
 go 1.12
 
 require (
+	cloud.google.com/go v0.38.0
 	firebase.google.com/go v3.8.1+incompatible
 	github.com/jinzhu/gorm v1.9.10
 	github.com/k0kubun/colorstring v0.0.0-20150214042306-9440f1994b88 // indirect
