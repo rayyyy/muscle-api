@@ -1,6 +1,7 @@
 package main
 
 import (
+	"muscle-api/funcs"
 	"log"
 	"muscle-api/controllers"
 	"muscle-api/handler"
@@ -15,8 +16,16 @@ func main() {
 
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
+
+	var allowOrigins []string
+	if funcs.IsProduction() {
+		allowOrigins = append(allowOrigins, "https://muscle.netlify.com")
+	} else {
+		allowOrigins = append(allowOrigins, "*")
+	}
+
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins: []string{"http://localhost:4200", "https://muscle.netlify.com"},
+		AllowOrigins: allowOrigins,
 	}))
 
 	e.GET("/user/:id", controllers.GetUser)
