@@ -6,7 +6,6 @@ import (
 	"muscle-api/models"
 	"net/http"
 	"strconv"
-	"strings"
 
 	"github.com/jinzhu/gorm"
 	"github.com/labstack/echo/v4"
@@ -43,7 +42,7 @@ func UpdateUser(c echo.Context) error {
 	defer db.Close()
 
 	var params struct {
-		User     userParams `json:"user"`
+		User     updateUserParams `json:"user"`
 		UserIcon string     `json:"user_icon"`
 	}
 	if err := c.Bind(&params); err != nil {
@@ -52,8 +51,9 @@ func UpdateUser(c echo.Context) error {
 	}
 	updateUser := params.User
 
+	// DB失敗したらデータ消したい
 	if params.UserIcon != "" {
-		success := funcs.UploadImage(strconv.Itoa(updateUser.ID)+".png", strings.Split(params.UserIcon, "base64,")[1])
+		success := funcs.UploadProfileIcon(strconv.Itoa(updateUser.ID)+".png", params.UserIcon)
 		if success == true {
 			updateUser.Image = "https://storage.googleapis.com/muscle-2710.appspot.com/user-icon/" + strconv.Itoa(updateUser.ID) + ".png"
 		}
@@ -69,7 +69,7 @@ func UpdateUser(c echo.Context) error {
 	return c.JSON(http.StatusOK, user)
 }
 
-type userParams struct {
+type updateUserParams struct {
 	ID         int              `json:"id"`
 	Image      string           `json:"image"`
 	Nickname   string           `json:"nickname"`

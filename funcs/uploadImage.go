@@ -6,12 +6,13 @@ import (
 	"io"
 	"log"
 	"os"
+	"strings"
 
 	"cloud.google.com/go/storage"
 )
 
 // UploadImage 画像をfirebaseにアップロードする
-func UploadImage(filename string, base64Image string) bool {
+func UploadImage(filename string, base64Image string, prefixPath string) bool {
 	app, err := FirebaseInit()
 	if err != nil {
 		return false
@@ -33,7 +34,7 @@ func UploadImage(filename string, base64Image string) bool {
 	contentType := "image/png"
 	ctx := context.Background()
 
-	writer := bucket.Object("user-icon/" + filename).NewWriter(ctx)
+	writer := bucket.Object(prefixPath + filename).NewWriter(ctx)
 	writer.ObjectAttrs.ContentType = contentType
 	writer.ObjectAttrs.CacheControl = "no-cache"
 	writer.ObjectAttrs.ACL = []storage.ACLRule{
@@ -80,4 +81,14 @@ func UploadImage(filename string, base64Image string) bool {
 		log.Fatalln(err)
 	}
 	return true
+}
+
+// UploadProfileIcon プロフィール画像アップロード
+func UploadProfileIcon(filename string, base64Image string) bool {
+	return UploadImage(filename, strings.Split(base64Image, "base64,")[1], "user-icon/")
+}
+
+// UploadPlanImage メンタープラン画像アップロード
+func UploadPlanImage(filename string, base64Image string) bool {
+	return UploadImage(filename, strings.Split(base64Image, "base64,")[1], "mentor-image/")
 }
